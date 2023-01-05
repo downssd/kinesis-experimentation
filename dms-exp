@@ -1,0 +1,90 @@
+{
+    "rules": [
+        {
+            "rule-type": "selection",
+            "rule-id": "1",
+            "rule-name": "1",
+            "rule-action": "include",
+            "object-locator": {
+                "schema-name": "kinesis_test",
+                "table-name": "%"
+            }
+        },
+        {
+            "rule-type": "selection",
+            "rule-id": "2",
+            "rule-name": "2",
+            "rule-action": "include",
+            "object-locator": {
+                "schema-name": "heartbeat",
+                "table-name": "%"
+            }
+        },
+        {
+            "rule-type": "object-mapping",
+            "rule-id": "543545",
+            "rule-name": "TransformToKinesis-1",
+            "rule-action": "map-record-to-record",
+            "object-locator": {
+                "schema-name": "kinesis_test",
+                "table-name": "emp"
+            },
+            "mapping-parameters": {
+                "partition-key-type": "attribute-name",
+                "partition-key-name": "DerivedPartitionKey",
+                "attribute-mappings": [
+                    {
+                        "target-attribute-name": "DerivedPartitionKey",
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "value": "kinesis_test.emp"
+                    }
+                ]
+            }
+        },
+        {
+            "rule-type": "object-mapping",
+            "rule-id": "543549",
+            "rule-name": "TransformToKinesis-123",
+            "rule-action": "map-record-to-record",
+            "object-locator": {
+                "schema-name": "kinesis_test",
+                "table-name": "dept"
+            },
+            "mapping-parameters": {
+                "partition-key-type": "attribute-name",
+                "partition-key-name": "DerivedPartitionKey",
+                "attribute-mappings": [
+                    {
+                        "target-attribute-name": "DerivedPartitionKey",
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "value": "kinesis_test.dept"
+                    }
+                ]
+            }
+        },
+        {
+            "rule-type": "object-mapping",
+            "rule-id": "1234",
+            "rule-name": "TransformToKinesis-1546",
+            "rule-action": "map-record-to-record",
+            "object-locator": {
+                "schema-name": "heartbeat",
+                "table-name": "heartbeat"
+            },
+            "mapping-parameters": {
+                "partition-key-type": "attribute-name",
+                "partition-key-name": "DerivedPartitionKey",
+                "attribute-mappings": [
+                    {
+                        "target-attribute-name": "DerivedPartitionKey",
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "value": "${heartbeat_tx}"
+                    }
+                ]
+            }
+        }
+    ]
+}
